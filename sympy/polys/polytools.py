@@ -2595,6 +2595,10 @@ class Poly(Basic):
         """
         Compute ``f**(-1)`` mod ``x**n``.
 
+        This function computes first ``2**n`` terms of a polynomial that
+        is a result of inversion of a polynomial modulo ``x**n``. This is
+        useful to efficiently compute series expansion of ``1/f``.
+
         Examples
         ========
 
@@ -3053,6 +3057,25 @@ class Poly(Basic):
     def decompose(f):
         """
         Computes a functional decomposition of ``f``.
+
+        Given a polynomial with one variable ``f`` with coefficients in a field of
+        characteristic zero, returns list ``[f_1, f_2, ..., f_n]``, where::
+
+                f = f_1 o f_2 o ... f_n = f_1(f_2(... f_n))
+
+        and ``f_2, ..., f_n`` are monic and homogeneous polynomials of at
+        least second degree.
+
+        Unlike factorization, complete functional decompositions of
+        polynomials are not unique, consider examples:
+
+        1. ``f o g = f(x + b) o (g - b)``
+        2. ``x**n o x**m = x**m o x**n``
+        3. ``T_n o T_m = T_m o T_n``
+
+        where ``T_n`` and ``T_m`` are Chebyshev polynomials.
+
+        In other words, there may not be a decomposition for the input polynomial
 
         Examples
         ========
